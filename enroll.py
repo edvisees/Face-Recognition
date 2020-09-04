@@ -1,3 +1,5 @@
+import sys
+import traceback
 import numpy as np
 from face_embeddings import extract_face_embeddings
 from face_detector import detect_faces
@@ -60,8 +62,14 @@ if __name__ == "__main__":
         imPaths += glob.glob("{}/*/*.{}".format(dataset, filetype))
 
     for path in imPaths:
-        label = path.split("/")[-2]
-        image = cv2.imread(path)
-        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-        if not enroll_face(image, label, embeddings_path=args.embeddings, labels_path=args.labels):
-            print(path)
+        try:
+            label = path.split("/")[-2]
+            image = cv2.imread(path)
+            if image is None:
+                continue
+            image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+            if not enroll_face(image, label, embeddings_path=args.embeddings, labels_path=args.labels):
+                print(path)
+        except Exception:
+            sys.stderr.write("ERROR: Exception occurred while processing {0}\n".format(path))
+            traceback.print_exc()
