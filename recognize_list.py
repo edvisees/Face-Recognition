@@ -49,7 +49,7 @@ if __name__ == "__main__":
 
     image_path_list = [l.strip() for l in open(args.input_list).readlines()]
     output_dict = dict()
-    for idx, img_path in enumerate(tqdm(image_path_list)):
+    for idx, img_path in enumerate(tqdm(image_path_list, disable=None)):
         try:
             image = cv2.imread(img_path)
             if image is None:
