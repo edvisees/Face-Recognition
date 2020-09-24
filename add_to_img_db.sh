@@ -18,7 +18,7 @@ python -u download_from_bing.py -i $names_kb -n 5 -o $face_embeddings_dir/faceba
 python -u validate_downloads.py -i $face_embeddings_dir/facebank/ -l $face_embeddings_dir/empty_dirs.lst --purge
 
 # create the reference image database
-rm -v $face_embeddings_dir/face_embeddings.npy $face_embeddings_dir/labels.pkl
+# rm -v $face_embeddings_dir/face_embeddings.npy $face_embeddings_dir/labels.pkl
 python -u enroll.py -d $face_embeddings_dir/facebank/ -e $face_embeddings_dir/face_embeddings.npy -l $face_embeddings_dir/labels.pkl
 
 old_names_kb=$face_embeddings_dir/names_kb.tab.$(date "+%Y-%m-%dT%H:%M:%S")
